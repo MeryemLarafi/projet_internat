@@ -1,0 +1,155 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+  }
+  
+  /* Navigation */
+  nav {
+    background-color: #094e85;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav button {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    color: #094e85;
+    font-size: 16px;
+    margin: 0 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  nav button:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+  }
+  
+  /* Formulaire */
+  form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  form h2 {
+    text-align: center;
+    color: #094e85;
+  }
+  
+  form input,
+  form select,
+  form button {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  form button {
+    background-color: #094e85;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Tableaux */
+  table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 7%; /* Décale le tableau un peu vers la droite */
+  }
+  
+  table thead {
+    background-color: #094e85;
+    color: #ffffff;
+  }
+  
+  table thead th {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table tbody td:last-child {
+    text-align: center;
+  }
+  
+  table button {
+    background-color: #ff4d4f;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  table button:hover {
+    background-color: #d9363e;
+  }
+  
+  /* Titres */
+  h2 {
+    text-align: center;
+    color: #094e85;
+    margin: 20px 0;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    nav button {
+      margin: 5px 0;
+      padding: 8px 15px;
+    }
+  
+    form,
+    table {
+      width: 100%;
+    }
+  
+    table tbody td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    form input,
+    form select,
+    form button {
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+  
