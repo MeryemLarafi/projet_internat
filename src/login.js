@@ -1,4 +1,5 @@
-export default function LoginCard() {
+// ... existing code ...
+ export default function LoginCard() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden">

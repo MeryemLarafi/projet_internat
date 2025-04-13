@@ -13,6 +13,10 @@ import LoginCard from './login.js'
 // import ArchivePage from './composants/ArchivePage';
 // import SecurityPage from './composants/SecurityPage';
 import GestionDossier from './composants/GestionDossier.js'; 
+import Calendar from './pages/Calendar.js';
+import AdminDemmande from './pages/AdminDemmande.js';
+import Historique from './pages/Historique.js';
+import DemandeAbsence from './pages/DemmandeAbsence.js';
 
 
 function App() {
@@ -32,6 +36,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/gestion-dossier" element={<GestionDossier />} />
         <Route path="/LoginCard" element={<LoginCard />} />
+        <Route path="/pages/Calendar" element={<Calendar />} />
+        <Route path="/pages/AdminDemmande" element={<AdminDemmande />} />
+        <Route path="/pages/Historique" element={<Historique />} />
+        <Route path="/pages/DemmandeAbsence" element={<DemandeAbsence />} />
         {/* <Route path="/command" element={<CommandPage />} />
         <Route path="/sautage" element={<SautagePage />} />
         <Route path="/gestion-stock" element={<GestionStock />} />

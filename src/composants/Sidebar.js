@@ -23,7 +23,7 @@ function SidBar() {
   return (
     <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
       <div className="logo-details">
-        <center><div className="logo_name">OFPPT</div></center>
+        <center><div className="logo_name"> Ofppt internat</div></center>
         <i className="bx bx-menu" id="btn" onClick={toggleSidebar}></i>
       </div>
       <ul className="nav-list">
@@ -42,22 +42,43 @@ function SidBar() {
           <span className="tooltip">Gestion de chambre</span>
         </li>
         <li>
-          <Link to="/">
-            <i className="bx bx-calendar-x"></i> {/* Icône pour gestion des absences */}
-            <span className="links_name">Gestion d'absence</span>
+          <Link to="/pages/Calendar">
+            <i className="bx bx-calendar-x"></i>
+            <span className="links_name">Calendrier des absences</span>
           </Link>
-          <span className="tooltip">Gestion d'absence</span>
+          <span className="tooltip">Calendrier des absences</span>
+        </li>
+        <li>
+          <Link to="/pages/AdminDemmande">
+            <i className="bx bx-list-check"></i>
+            <span className="links_name">Gestion des demandes</span>
+          </Link>
+          <span className="tooltip">Gestion des demandes</span>
+        </li>
+        <li>
+          <Link to="/pages/Historique">
+            <i className="bx bx-history"></i>
+            <span className="links_name">Historique des demandes</span>
+          </Link>
+          <span className="tooltip">Historique des demandes</span>
+        </li>
+        <li>
+          <Link to="/pages/DemmandeAbsence">
+            <i className="bx bx-file"></i>
+            <span className="links_name">Demandes d'absence</span>
+          </Link>
+          <span className="tooltip">Demandes d'absence</span>
         </li>
         <li>
           <Link to="/">
-            <i className="bx bx-cube"></i> {/* Icône pour gestion du stock */}
+            <i className="bx bx-cube"></i>
             <span className="links_name">Gestion de stock</span>
           </Link>
           <span className="tooltip">Gestion de stock</span>
         </li>
         <li>
           <Link to="/">
-            <i className="bx bx-credit-card"></i> {/* Icône pour gestion des paiements */}
+            <i className="bx bx-credit-card"></i>
             <span className="links_name">Gestion des paiements</span>
           </Link>
           <span className="tooltip">Gestion des paiements</span>
@@ -70,20 +91,26 @@ function SidBar() {
           <span className="tooltip">Gestion des dossiers</span>
         </li>
         <li>
-          <Link to="/LoginCard">
-            <i className="bx bx-bar-chart-alt"></i> {/* Icône pour le tableau de bord */}
+          <Link to="">
+            <i className="bx bx-bar-chart-alt"></i>
             <span className="links_name">Dashboard</span>
           </Link>
           <span className="tooltip">Dashboard</span>
         </li>
-          <li>
-    <Link to="/notifications">
-      <i className="bx bx-bell"></i> {/* Icône pour les notifications */}
-      <span className="links_name">Notifications</span>
-    </Link>
-    <span className="tooltip">Notifications</span>
-  </li>
-
+        <li>
+          <Link to="/notifications">
+            <i className="bx bx-bell"></i>
+            <span className="links_name">Notifications</span>
+          </Link>
+          <span className="tooltip">Notifications</span>
+        </li>
+        <li>
+          <Link to="/LoginCard">
+            <i className="bx bx-user-circle"></i>
+            <span className="links_name">Login</span>
+          </Link>
+          <span className="tooltip">Login</span>
+        </li>
       </ul>
     </div>
   );
