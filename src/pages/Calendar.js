@@ -725,8 +725,8 @@ const Calendaar = () => {
                   type="text"
                   name="duree"
                   value={newEvent.duree}
-                  onChange={handleNewEventChange}
-                  placeholder="Durée de l'absence"
+                  readOnly
+                  placeholder="Durée calculée automatiquement"
                 />
               </div>
             ) : (

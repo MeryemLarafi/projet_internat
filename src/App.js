@@ -8,11 +8,10 @@ import HomePage from './composants/HomePage.js';
 // import GestionCout from './composants/GestionCout';
 // import EtatChantier from './composants/EtatChantier';
 import SidBar from './composants/Sidebar.js';
-import LoginCard from './login.js'
+// import LoginCard from './login.js'
 // import DashboardPage from './composants/DashboardPage';
 // import ArchivePage from './composants/ArchivePage';
 // import SecurityPage from './composants/SecurityPage';
-import GestionDossier from './composants/GestionDossier.js'; 
 import Calendar from './pages/Calendar.js';
 import AdminDemmande from './pages/AdminDemmande.js';
 import Historique from './pages/Historique.js';
@@ -34,8 +33,7 @@ function App() {
       <SidBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/gestion-dossier" element={<GestionDossier />} />
-        <Route path="/LoginCard" element={<LoginCard />} />
+        {/* <Route path="/gestion-dossier" element={<GestionDossier />} /> */}
         <Route path="/pages/Calendar" element={<Calendar />} />
         <Route path="/pages/AdminDemmande" element={<AdminDemmande />} />
         <Route path="/pages/Historique" element={<Historique />} />

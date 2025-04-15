@@ -102,24 +102,26 @@
   right: 20px;
   top: 20px;
   background: #ffffff;
-  padding: 15px;
+  padding: 8px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
+  max-width: 250px;
   border-left: 4px solid #bdc3c7;
   animation: slideIn 0.4s ease-out;
   z-index: 1000;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 /* Titre du panneau des détails */
 .event-details h3 {
   margin-top: 0;
   color: #34495e;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   border-bottom: 1px solid #ecf0f1;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
   display: flex;
   align-items: center;
 }
@@ -373,4 +375,78 @@
 
 .form-actions button:hover {
   opacity: 0.9;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 3px;
+}
+
+.edit-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.edit-form label {
+  font-weight: 600;
+  color: #333;
+  font-size: 11px;
+  margin: 0;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+  padding: 3px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  font-size: 11px;
+  transition: all 0.3s ease;
+}
+
+.edit-form textarea {
+  resize: vertical;
+  min-height: 35px;
+  max-height: 50px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.event-actions {
+  display: flex;
+  gap: 3px;
+  margin-top: 3px;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 3px 0;
+  border-top: 1px solid #eee;
+}
+
+.event-actions button {
+  flex: 1;
+  padding: 3px 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 11px;
+  transition: all 0.3s ease;
 }

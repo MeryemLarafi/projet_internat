@@ -111,7 +111,7 @@ const AdminDemmande = () => {
           {notification.type === "info" && (
             <button 
               className="notification-link"
-              onClick={() => navigate("/historique")}
+              onClick={() => navigate("/pages/Historique")}
             >
               Voir l'historique
             </button>
@@ -145,7 +145,7 @@ const AdminDemmande = () => {
           }`}></i>
         </div>
 
-        <button className="historique-btn" onClick={() => navigate("/historique")}>
+        <button className="historique-btn" onClick={() => navigate("/pages/Historique")}>
           <i className="fas fa-history"></i> Historique
         </button>
       </div>
