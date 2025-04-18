@@ -1,452 +1,381 @@
 /* Conteneur principal du calendrier */
 .calendar-container {
-  padding: 30px;
-  max-width: 1300px;
-  margin: 0 auto;
-  background: #f5f6fa; /* Gris clair légèrement plus doux */
-  border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  width:70%;
+  padding: 20px;
+  max-width: 1400px;
+  width: 90%;
+  margin: 20px auto;
+  background: #f7f8fc;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  min-height: 600px;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+  .calendar-container {
+    width: 95%;
+    padding: 15px;
+  }
 }
 
 /* Titre du calendrier */
 .calendar-container h2 {
-  margin-bottom: 30px;
-  color: #2c3e50; /* Gris foncé élégant */
-  font-family: "Segoe UI", sans-serif;
-  font-size: 30px;
-  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1a2a44;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(22px, 4vw, 26px);
+  font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
 }
 
 /* Fond du calendrier */
 .rbc-calendar {
-  background: #ffffff; /* Blanc pour un contraste net */
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Boutons de navigation du calendrier */
+/* Boutons de navigation */
 .rbc-btn-group button {
-  background: #ecf0f1; /* Gris très clair */
+  background: #e5e9f0;
   border: none;
-  color: #34495e; /* Gris bleuâtre */
-  padding: 10px 18px;
+  color: #2d3b55;
+  padding: 8px 14px;
   margin: 0 4px;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  border-radius: 5px;
+  font-size: 13px;
+  transition: all 0.2s ease;
 }
 
 .rbc-btn-group button:hover {
-  background: #bdc3c7; /* Gris moyen clair */
+  background: #c1c9d2;
   color: #ffffff;
 }
 
-/* Styles des événements dans le calendrier */
+/* Événements */
 .rbc-event {
   border: none !important;
-  border-radius: 10px !important;
-  padding: 5px 10px !important;
+  border-radius: 6px !important;
+  padding: 3px 6px !important;
   color: #fff !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  font-size: 12px;
 }
 
-/* Événements spécifiques : Absence (gris bleuté doux) */
 .rbc-event.absence {
-  background: #95a5a6 !important; /* Gris bleuté doux */
+  background: #4a5568 !important; /* Vert pour absence */
 }
 
 .rbc-event.absence:hover {
-  transform: scale(1.05);
-  background: #7f8c8d !important; /* Gris bleuté plus foncé */
-  box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3) !important;
+  background: #4a5568 !important; /* Vert foncé pour hover */
+  box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3) !important;
 }
 
-/* Événements spécifiques : Restauration (gris chaud doux) */
 .rbc-event.restauration {
-  background: #bdc3c7 !important; /* Gris chaud doux */
+  background: #7f8c8d !important; /* Gris foncé pour restauration */
 }
 
 .rbc-event.restauration:hover {
-  transform: scale(1.05);
-  background: #95a5a6 !important; /* Gris chaud plus foncé */
-  box-shadow: 0 4px 12px rgba(189, 195, 199, 0.3) !important;
+  background: #95a5a6 !important;
+  box-shadow: 0 2px 8px rgba(127, 140, 141, 0.3) !important;
 }
 
-/* Overlay pour l'effet de brouillard léger */
+/* Barre de recherche et export */
+.search-export-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-wrapper {
+  position: relative;
+  width: min(350px, 80%);
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2d3b55;
+  font-size: 15px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 30px;
+  border: 1px solid #e5e9f0;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.search-input:focus {
+  border-color: #4a5568; /* Vert pour focus */
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #a0aec0;
+}
+
+/* Bouton d'export PDF */
+.export-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  background: #e5e9f0;
+  color: #2d3b55;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+  order: 1; /* À droite d l’search */
+}
+
+.export-btn:hover {
+  background: #c1c9d2;
+}
+
+.export-btn i {
+  font-size: 13px;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 1001;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification.success {
+  background: #4a5568; /* Vert pour succès */
+}
+
+.notification.error {
+  background: #f56565;
+}
+
+/* Panneau des détails (formulaire sur double-click) */
+.event-details {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  width: min(440px, 95vw); /* Large pour tout afficher */
+  border-left: 4px solid #4a5568; /* Vert pour bordure */
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Responsivité pour mobile */
+@media (max-width: 768px) {
+  .event-details {
+    width: 95%;
+    right: 2.5%;
+    top: 10px;
+    padding: 15px;
+  }
+}
+
+/* Titre du panneau */
+.event-details h3 {
+  margin: 0 0 15px;
+  color: #1a2a44;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e9f0;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* Icônes */
+.event-details .event-icon {
+  margin-right: 10px;
+  font-size: 24px;
+  color: #434444; /* Vert pour icônes */
+}
+
+/* Détails (quand isEditing=false) */
+.event-details p {
+  color: #4a5568;
+  font-size: 13px;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.event-details p strong {
+  color: #1a2a44;
+  font-weight: 600;
+}
+
+/* Formulaire d’édition/ajout */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacement clair */
+}
+
+.edit-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-form label {
+  font-weight: 500;
+  color: #2d3b55;
+  font-size: 13px;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+  display: block; /* Ga3 l’inputs tban */
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #575857; /* Vert pour border */
+  border-radius: 5px;
+  font-size: 13px;
+  color: #2d3b55;
+  background: #f7f8fc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+  border-color: #4c4d4c; /* Vert foncé pour focus */
+  outline: none;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(46, 204, 113, 0.3); /* Glow vert */
+}
+
+.edit-form textarea {
+  resize: vertical;
+  min-height: 80px;
+  max-height: 160px;
+}
+
+.edit-form input::placeholder {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+/* Checkbox group (pour repas) */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  font-size: 13px;
+  color: #2d3b55;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  accent-color: #4a5568; /* Vert pour checkboxes */
+  width: 16px;
+  height: 16px;
+}
+
+/* Actions du formulaire */
+.event-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  padding: 10px 0;
+  border-top: 1px solid #e5e9f0;
+  justify-content: flex-end;
+}
+
+.event-actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Boutons spécifiques */
+.event-actions .save-btn,
+.event-actions .edit-btn {
+  background: #4a5568; /* Vert émeraude */
+  color: #ffffff;
+}
+
+.event-actions .cancel-btn,
+.event-actions .close-btn {
+  background: #e5e9f0; /* Gris clair */
+  color: #2d3b55;
+}
+
+.event-actions .delete-btn {
+  background: #f56565; /* Rouge pour supprimer */
+  color: #ffffff;
+}
+
+.event-actions button:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Overlay pour flou */
 .calendar-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(44, 62, 80, 0.15); /* Gris bleuté subtil */
-  backdrop-filter: blur(3px); /* Flou légèrement plus prononcé */
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 998;
   transition: opacity 0.3s ease;
 }
 
-/* Flou sur le calendrier quand l'overlay est actif */
+/* Flou sur calendrier */
 .calendar-container.blur-active .rbc-calendar {
-  filter: blur(1.5px); /* Flou léger mais visible */
+  filter: blur(1px);
   transition: filter 0.3s ease;
 }
 
-/* Panneau des détails */
-.event-details {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  background: #ffffff;
-  padding: 8px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  max-width: 250px;
-  border-left: 4px solid #bdc3c7;
-  animation: slideIn 0.4s ease-out;
-  z-index: 1000;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-/* Titre du panneau des détails */
-.event-details h3 {
-  margin-top: 0;
-  color: #34495e;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #ecf0f1;
-  padding-bottom: 4px;
-  display: flex;
-  align-items: center;
-}
-
-/* Icônes dans le panneau des détails */
-.event-details .event-icon {
-  margin-right: 12px;
-  font-size: 26px;
-}
-
-.event-details .event-icon.absence {
-  color: #95a5a6; /* Gris bleuté doux pour absence */
-}
-
-.event-details .event-icon.restauration {
-  color: #bdc3c7; /* Gris chaud doux pour restauration */
-}
-
-/* Paragraphes dans le panneau des détails */
-.event-details p {
-  color: #7f8c8d;
-  font-size: 13px;
-  margin: 8px 0;
-  line-height: 1.4;
-}
-
-.event-details p strong {
-  color: #2c3e50; /* Gris foncé élégant */
-  font-weight: 600;
-}
-
-/* Bouton du panneau des détails */
-.event-details button {
-  margin-top: 12px;
-  padding: 6px 12px;
-  background: #95a5a6;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(149, 165, 166, 0.2);
-}
-
-.event-details button:hover {
-  background: #7f8c8d;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(149, 165, 166, 0.3);
-}
-
-/* Animation pour l'apparition du panneau */
+/* Animation */
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(60px);
+    transform: translateX(50px);
   }
   to {
     opacity: 1;
     transform: translateX(0);
   }
-}
-
-/* Styles pour la nouvelle barre de recherche */
-.search-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.search-wrapper {
-  position: relative;
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #2c3e50; /* Gris foncé pour correspondre au thème */
-  font-size: 18px;
-}
-
-.search-input {
-  width: 300px;
-  padding: 10px 15px;
-  border: 1px solid #bdc3c7;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.search-input::placeholder {
-  color: #95a5a6;
-  font-style: italic;
-}
-
-.calendar-header {
-  margin-bottom: 20px;
-}
-
-.calendar-header h2 {
-  text-align: center;
-  color: #2c3e50;
-  font-size: 24px;
-  margin: 0;
-}
-
-.calendar-controls {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.search-export-container {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.export-btn {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ecf0f1;
-  color: #34495e;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.export-btn:hover {
-  background-color: #bdc3c7;
-}
-
-.export-btn i {
-  font-size: 14px;
-}
-
-.notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 15px 25px;
-  border-radius: 4px;
-  color: white;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  animation: slideIn 0.3s ease-out;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.notification.success {
-  background-color: #4CAF50;
-}
-
-.notification.error {
-  background-color: #f44336;
-}
-
-.notification i {
-  font-size: 1.2em;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Styles pour le formulaire d'ajout d'absence */
-.absence-form {
-  background: white;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.absence-form h3 {
-  margin-bottom: 8px;
-  color: #333;
-  font-size: 14px;
-}
-
-.form-group {
-  margin-bottom: 6px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 2px;
-  color: #666;
-  font-size: 12px;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 4px 6px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 12px;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: #4a5568;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.form-actions button {
-  padding: 4px 8px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: background-color 0.2s;
-}
-
-.form-actions button[type="submit"] {
-  background-color: #4a5568;
-  color: white;
-}
-
-.form-actions button[type="button"] {
-  background-color: #e2e8f0;
-  color: #4a5568;
-}
-
-.form-actions button:hover {
-  opacity: 0.9;
-}
-
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 3px;
-}
-
-.edit-form div {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.edit-form label {
-  font-weight: 600;
-  color: #333;
-  font-size: 11px;
-  margin: 0;
-}
-
-.edit-form input,
-.edit-form select,
-.edit-form textarea {
-  padding: 3px;
-  border-radius: 3px;
-  border: 1px solid #ddd;
-  background-color: #f9f9f9;
-  font-size: 11px;
-  transition: all 0.3s ease;
-}
-
-.edit-form textarea {
-  resize: vertical;
-  min-height: 35px;
-  max-height: 50px;
-}
-
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.checkbox-group label {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-weight: normal;
-  cursor: pointer;
-  font-size: 11px;
-}
-
-.event-actions {
-  display: flex;
-  gap: 3px;
-  margin-top: 3px;
-  position: sticky;
-  bottom: 0;
-  background: white;
-  padding: 3px 0;
-  border-top: 1px solid #eee;
-}
-
-.event-actions button {
-  flex: 1;
-  padding: 3px 5px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 11px;
-  transition: all 0.3s ease;
 }

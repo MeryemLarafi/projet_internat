@@ -1,114 +1,111 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Importez Link à partir de 'react-router-dom'
-import '../styles/Sidebare.css';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import '../styles/Sidebar.css';
 import 'boxicons/css/boxicons.min.css';
 
-function SidBar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    menuBtnChange();
-  };
-
-  const menuBtnChange = () => {
-    const closeBtn = document.querySelector("#btn");
-    if (isSidebarOpen) {
-      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-    } else {
-      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+function Sidebar({ isOpen, toggleSidebar }) {
+  const handleLinkClick = () => {
+    if (window.innerWidth <= 420) {
+      toggleSidebar(); // Close sidebar on mobile after clicking a link
     }
   };
 
   return (
-    <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="logo-details">
-        <center><div className="logo_name"> Ofppt internat</div></center>
-        <i className="bx bx-menu" id="btn" onClick={toggleSidebar}></i>
+        <center>
+          <div className="logo_name">Ofppt internat</div>
+        </center>
+        <i
+          className={`bx ${isOpen ? 'bx-menu' : 'bx-menu-alt-right'}`}
+          id="btn"
+          onClick={toggleSidebar}
+          aria-label="Toggle sidebar"
+        ></i>
       </div>
       <ul className="nav-list">
         <li>
-          <Link to="/">
-            <i className="bx bx-home-alt"></i> {/* Icône pour "Home" */}
+          <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
+            <i className="bx bx-home-alt"></i>
             <span className="links_name">Home</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Home</span>
         </li>
         <li>
-          <Link to="/">
-            <i className="bx bx-bed"></i> {/* Icône pour gestion des chambres */}
+          <NavLink to="/gestion-chambre" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
+            <i className="bx bx-bed"></i>
             <span className="links_name">Gestion de chambre</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Gestion de chambre</span>
         </li>
         <li>
-          <Link to="/pages/Calendar">
+          <NavLink to="/calendar" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-calendar-x"></i>
             <span className="links_name">Calendrier des absences</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Calendrier des absences</span>
         </li>
         <li>
-          <Link to="/pages/AdminDemmande">
+          <NavLink to="/admin-demmande" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-list-check"></i>
             <span className="links_name">Gestion des demandes</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Gestion des demandes</span>
         </li>
         <li>
-          <Link to="/pages/Historique">
+          <NavLink to="/historique" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-history"></i>
             <span className="links_name">Historique des demandes</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Historique des demandes</span>
         </li>
         <li>
-          <Link to="/pages/DemmandeAbsence">
+          <NavLink to="/demande-absence" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-file"></i>
             <span className="links_name">Demandes d'absence</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Demandes d'absence</span>
         </li>
         <li>
-          <Link to="/">
+          <NavLink to="/gestion-stock" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-cube"></i>
-            <span className="links_name">Gestion de stock</span>
-          </Link>
-          <span className="tooltip">Gestion de stock</span>
+            <span className="links_name">Gestion Stock</span>
+          </NavLink>
+          <span className="tooltip">Gestion Stock</span>
         </li>
         <li>
-          <Link to="/">
+          <NavLink to="/gestion-paiements" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-credit-card"></i>
             <span className="links_name">Gestion des paiements</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Gestion des paiements</span>
         </li>
         <li>
-          <Link to="/gestion-dossier">
-            <i className="bx bx-folder-open"></i>
+          <NavLink to="/gestion-dossier" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
+            <i className="bx bx-file"></i>
             <span className="links_name">Gestion des dossiers</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Gestion des dossiers</span>
         </li>
         <li>
-          <Link to="">
+          <NavLink to="/dashboard" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-bar-chart-alt"></i>
             <span className="links_name">Dashboard</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Dashboard</span>
         </li>
         <li>
-          <Link to="/notifications">
+          <NavLink to="/notifications" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-bell"></i>
             <span className="links_name">Notifications</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Notifications</span>
         </li>
         <li>
-          <Link to="/LoginCard">
+          <NavLink to="/login" className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleLinkClick}>
             <i className="bx bx-user-circle"></i>
             <span className="links_name">Login</span>
-          </Link>
+          </NavLink>
           <span className="tooltip">Login</span>
         </li>
       </ul>
@@ -116,4 +113,4 @@ function SidBar() {
   );
 }
 
-export default SidBar;
+export default Sidebar;
