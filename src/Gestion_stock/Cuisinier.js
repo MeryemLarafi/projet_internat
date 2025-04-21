@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { FaSearch, FaFilter } from "react-icons/fa";
+import React, { useState, useEffect, useMemo } from "react";
+import { FaSearch, FaFilter, FaEdit, FaUtensils, FaAppleAlt, FaBlender, FaBoxes, FaQuestion } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./Cuisinier.css";
+import styles from "./Cuisinier.module.css";
 
-function Cuisinier({ products }) {
+function Cuisinier({ products, setProducts }) {
   const [search, setSearch] = useState("");
   const [selectedZone, setSelectedZone] = useState("Tous");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [quantityToUse, setQuantityToUse] = useState(0);
+  const [quantityToUse, setQuantityToUse] = useState("");
   const [usedProducts, setUsedProducts] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [error, setError] = useState("");
 
-  const zonesDisponibles = ["Tous", ...new Set(products.map(p => p.zone || "Non assigné"))];
+  const zonesDisponibles = useMemo(() => {
+    return ["Tous", ...new Set(products.map((p) => p.zone || "Non assigné"))];
+  }, [products]);
 
   useEffect(() => {
-    const storedUsedProducts = JSON.parse(localStorage.getItem("usedProducts"));
-    if (storedUsedProducts) {
-      setUsedProducts(storedUsedProducts);
+    try {
+      const storedUsedProducts = localStorage.getItem("usedProducts");
+      if (storedUsedProducts) {
+        setUsedProducts(JSON.parse(storedUsedProducts));
+      }
+    } catch (error) {
+      console.error("Error reading usedProducts from localStorage:", error);
     }
   }, []);
 
@@ -34,13 +41,14 @@ function Cuisinier({ products }) {
 
     const dateMatches =
       !selectedDate ||
-      (usedProduct && usedProduct.datesUsed.includes(selectedDate.toLocaleDateString()));
+      (usedProduct &&
+        usedProduct.datesUsed.includes(selectedDate.toLocaleDateString("fr-FR")));
 
     const zoneMatch = selectedZone === "Tous" || (product.zone || "Non assigné") === selectedZone;
 
     return (
       availableQuantity >= 0 &&
-      product.name.toLowerCase().startsWith(search.toLowerCase()) &&
+      product.name.toLowerCase().includes(search.toLowerCase()) &&
       dateMatches &&
       zoneMatch
     );
@@ -50,40 +58,51 @@ function Cuisinier({ products }) {
     const selected = products.find((product) => product.id === productId);
     const usedProduct = usedProducts.find((used) => used.id === selected.id);
     const availableQuantity = usedProduct ? usedProduct.availableQuantity : selected.quantity;
+    const quantity = parseInt(quantityToUse);
 
-    if (quantityToUse <= 0 || quantityToUse > availableQuantity) {
-      alert("Quantité invalide.");
-      setQuantityToUse(0);
+    if (!quantity || quantity <= 0 || quantity > availableQuantity) {
+      setError("Quantité invalide ou supérieure à la quantité disponible.");
       return;
     }
 
-    const currentDate = new Date().toLocaleDateString();
+    const currentDate = new Date().toLocaleDateString("fr-FR");
+    let updatedUsedProducts;
 
     if (usedProduct) {
-      const updatedUsedProducts = usedProducts.map((used) =>
+      updatedUsedProducts = usedProducts.map((used) =>
         used.id === selected.id
           ? {
               ...used,
-              usedQuantity: used.usedQuantity + quantityToUse,
-              availableQuantity: availableQuantity - quantityToUse,
+              usedQuantity: used.usedQuantity + quantity,
+              availableQuantity: availableQuantity - quantity,
               datesUsed: [...(used.datesUsed || []), currentDate],
             }
           : used
       );
-      setUsedProducts(updatedUsedProducts);
     } else {
-      const newUsedProduct = {
-        ...selected,
-        zone: selected.zone || "Non assigné",
-        usedQuantity: quantityToUse,
-        availableQuantity: availableQuantity - quantityToUse,
-        datesUsed: [currentDate],
-      };
-      setUsedProducts([...usedProducts, newUsedProduct]);
+      updatedUsedProducts = [
+        ...usedProducts,
+        {
+          ...selected,
+          zone: selected.zone || "Non assigné",
+          usedQuantity: quantity,
+          availableQuantity: availableQuantity - quantity,
+          datesUsed: [currentDate],
+        },
+      ];
     }
 
-    setQuantityToUse(0);
+    const updatedProducts = products.map((p) =>
+      p.id === selected.id
+        ? { ...p, quantity: availableQuantity - quantity }
+        : p
+    ).filter((p) => p.quantity >= 0);
+
+    setUsedProducts(updatedUsedProducts);
+    setProducts(updatedProducts);
+    setQuantityToUse("");
     setSelectedProduct(null);
+    setError("");
   };
 
   const getStatus = (product) => {
@@ -91,53 +110,55 @@ function Cuisinier({ products }) {
     const remainingQuantity = usedProduct ? usedProduct.availableQuantity : product.quantity;
 
     if (remainingQuantity <= 0) {
-      return { className: "status status-expire", text: "Expiré" };
+      return { className: styles.statusExpire, text: "Expiré" };
     } else if (remainingQuantity <= 5) {
-      return { className: "status status-proche", text: "Proche à Expirer" };
+      return { className: styles.statusProche, text: "Proche à Expirer" };
     } else {
-      return { className: "status status-bon", text: "Bon" };
+      return { className: styles.statusBon, text: "Bon" };
     }
   };
 
   const getZoneTitle = () => {
     switch (selectedZone) {
       case "Economa 1":
-        return { text: "Zone Economa 1", icon: "fas fa-utensils" }; // Fork and knife
+        return { text: "Zone Economa 1", icon: <FaUtensils /> };
       case "Economa 2":
-        return { text: "Zone Economa 2", icon: "fas fa-utensils" }; // Fork and knife
+        return { text: "Zone Economa 2", icon: <FaUtensils /> };
       case "Fruit et Légume":
-        return { text: "Zone Fruits et Légumes", icon: "fas fa-apple-alt" }; // Apple
+        return { text: "Zone Fruits et Légumes", icon: <FaAppleAlt /> };
       case "Matériel":
-        return { text: "Zone Matériel", icon: "fas fa-blender" }; // Blender
+        return { text: "Zone Matériel", icon: <FaBlender /> };
       case "Tous":
-        return { text: "Produits Disponibles", icon: "fas fa-boxes" }; // Boxes
+        return { text: "Produits Disponibles", icon: <FaBoxes /> };
       case "Non assigné":
-        return { text: "Zone Non Assignée", icon: "fas fa-question" }; // Question mark
+        return { text: "Zone Non Assignée", icon: <FaQuestion /> };
       default:
-        return { text: `Zone ${selectedZone}`, icon: "fas fa-utensils" };
+        return { text: `Zone ${selectedZone}`, icon: <FaUtensils /> };
     }
   };
 
   const zoneTitle = getZoneTitle();
 
   return (
-    <div className="container">
-      <div className="controls-container">
-        <div className="search-zone-container">
-          <div className="search-container">
-            <FaSearch className="search-icon" />
+    <div className={styles.container}>
+      <div className={styles.controlsContainer}>
+        <div className={styles.searchZoneContainer}>
+          <div className={styles.searchContainer}>
+            <FaSearch className={styles.searchIcon} />
             <input
               type="text"
-              className="search-input"
+              className={styles.searchInput}
               placeholder="Rechercher un produit..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              aria-label="Rechercher un produit"
             />
           </div>
           <select
-            className="zone-select"
+            className={styles.zoneSelect}
             value={selectedZone}
             onChange={(e) => setSelectedZone(e.target.value)}
+            aria-label="Sélectionner une zone"
           >
             {zonesDisponibles.map((zone, index) => (
               <option key={index} value={zone}>
@@ -146,9 +167,9 @@ function Cuisinier({ products }) {
             ))}
           </select>
         </div>
-        <div className="filter-container">
+        <div className={styles.filterContainer}>
           {showDatePicker && (
-            <div className="date-picker-container">
+            <div className={styles.datePickerContainer}>
               <DatePicker
                 selected={selectedDate}
                 onChange={(date) => {
@@ -157,13 +178,16 @@ function Cuisinier({ products }) {
                 }}
                 placeholderText="Sélectionner une date"
                 dateFormat="dd/MM/yyyy"
-                className="date-picker"
+                className={styles.datePicker}
+                maxDate={new Date()}
+                aria-label="Sélectionner une date d'utilisation"
               />
             </div>
           )}
           <button
-            className="filter-button"
+            className={styles.filterButton}
             onClick={() => setShowDatePicker(!showDatePicker)}
+            aria-label="Filtrer par date"
           >
             <FaFilter />
           </button>
@@ -171,38 +195,57 @@ function Cuisinier({ products }) {
       </div>
 
       {selectedProduct && (
-        <div className="card">
-          <h3 className="card-title">{selectedProduct.name}</h3>
-          <p className="card-text">
-            Quantité disponible : {(() => {
-              const usedProduct = usedProducts.find((used) => used.id === selectedProduct.id);
-              return usedProduct ? usedProduct.availableQuantity : selectedProduct.quantity;
-            })()} {selectedProduct.unit}
+        <div className={styles.card}>
+          <h3 className={styles.cardTitle}>{selectedProduct.name}</h3>
+          <p className={styles.cardText}>
+            Quantité disponible :{" "}
+            {(() => {
+              const usedProduct = usedProducts.find(
+                (used) => used.id === selectedProduct.id
+              );
+              return usedProduct
+                ? usedProduct.availableQuantity
+                : selectedProduct.quantity;
+            })()}{" "}
+            {selectedProduct.unit}
           </p>
-          <p className="card-text">Zone : {selectedProduct.zone || "Non assigné"}</p>
-          <div className="card-input-container">
+          <p className={styles.cardText}>
+            Zone : {selectedProduct.zone || "Non assigné"}
+          </p>
+          <div className={styles.cardInputContainer}>
             <input
               type="number"
               placeholder="Quantité à utiliser"
               value={quantityToUse}
-              onChange={(e) => setQuantityToUse(Math.max(0, parseInt(e.target.value) || 0))}
-              className="card-input"
+              onChange={(e) => setQuantityToUse(e.target.value)}
+              className={styles.cardInput}
+              min="1"
+              aria-label="Quantité à utiliser"
+              aria-invalid={!!error}
+              aria-describedby={error ? "quantity-error" : undefined}
             />
             <button
-              className="action-btn card-action-btn"
+              className={`${styles.actionBtn} ${styles.cardActionBtn}`}
               onClick={() => handleQuantityDecrease(selectedProduct.id)}
+              disabled={!quantityToUse}
+              aria-label={`Utiliser ${selectedProduct.name}`}
             >
               Utiliser
             </button>
           </div>
+          {error && (
+            <span id="quantity-error" className={styles.error}>
+              {error}
+            </span>
+          )}
         </div>
       )}
 
-      <div className="zone active">
-        <h2 className="zone-title">
-          <i className={zoneTitle.icon}></i> {zoneTitle.text}
+      <div className={styles.zone}>
+        <h2 className={styles.zoneTitle}>
+          {zoneTitle.icon} {zoneTitle.text}
         </h2>
-        <table className="table">
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Nom du Produit</th>
@@ -218,24 +261,30 @@ function Cuisinier({ products }) {
               const { className, text } = getStatus(p);
               const usedProduct = usedProducts.find((used) => used.id === p.id);
               const usedQuantity = usedProduct ? usedProduct.usedQuantity : 0;
-              const availableQuantity = usedProduct ? usedProduct.availableQuantity : p.quantity;
+              const availableQuantity = usedProduct
+                ? usedProduct.availableQuantity
+                : p.quantity;
 
               return (
                 <tr key={p.id}>
                   <td>{p.name}</td>
                   <td>{p.zone || "Non assigné"}</td>
-                  <td>{availableQuantity} {p.unit}</td>
+                  <td>
+                    {availableQuantity} {p.unit}
+                  </td>
                   <td>{usedQuantity}</td>
                   <td>
                     <span className={className}>{text}</span>
                   </td>
                   <td>
                     <button
-                      className="action-btn table-action-btn"
+                      className={`${styles.actionIcon} ${styles.tableActionBtn}`}
                       onClick={() => setSelectedProduct(p)}
                       disabled={availableQuantity <= 0}
+                      title="Sélectionner"
+                      aria-label={`Sélectionner ${p.name}`}
                     >
-                      <i className="fas fa-edit"></i> Sélectionner
+                      <FaEdit />
                     </button>
                   </td>
                 </tr>
@@ -243,6 +292,9 @@ function Cuisinier({ products }) {
             })}
           </tbody>
         </table>
+        {filteredProducts.length === 0 && (
+          <p className={styles.noResults}>Aucun produit trouvé.</p>
+        )}
       </div>
     </div>
   );

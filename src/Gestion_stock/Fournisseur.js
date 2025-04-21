@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Fournisseur.css';
 import { FaSearch, FaUsers, FaPlus, FaEdit, FaTrash, FaPhone } from 'react-icons/fa';
+import styles from './Fournisseur.module.css';
 
 function Fournisseur({ products, setProducts }) {
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -15,7 +15,7 @@ function Fournisseur({ products, setProducts }) {
   const [currentSupplier, setCurrentSupplier] = useState(null);
   const [newSupplier, setNewSupplier] = useState({
     name: '',
-    contact: '+212'
+    contact: '+212',
   });
 
   useEffect(() => {
@@ -46,13 +46,13 @@ function Fournisseur({ products, setProducts }) {
       alert('Veuillez remplir tous les champs avec un numéro valide (+212 suivi de 9 chiffres)');
       return;
     }
-    
+
     const supplier = {
       id: Date.now(),
       ...newSupplier,
-      assignedProducts: []
+      assignedProducts: [],
     };
-    
+
     setSuppliers([...suppliers, supplier]);
     setNewSupplier({ name: '', contact: '+212' });
     setShowAddForm(false);
@@ -60,13 +60,13 @@ function Fournisseur({ products, setProducts }) {
 
   const handleDeleteSupplier = (supplierId) => {
     if (window.confirm('Voulez-vous vraiment supprimer ce fournisseur ?')) {
-      const supplierToDelete = suppliers.find(s => s.id === supplierId);
+      const supplierToDelete = suppliers.find((s) => s.id === supplierId);
       setSuppliers(suppliers.filter((s) => s.id !== supplierId));
-      setProducts(products.map(p => 
-        p.supplier === supplierToDelete.name 
-          ? { ...p, supplier: 'Non assigné' } 
-          : p
-      ));
+      setProducts(
+        products.map((p) =>
+          p.supplier === supplierToDelete.name ? { ...p, supplier: 'Non assigné' } : p
+        )
+      );
     }
   };
 
@@ -109,40 +109,56 @@ function Fournisseur({ products, setProducts }) {
   };
 
   return (
-    <div className="fournisseur-container">
-      <div className="container">
-        <div className="controls-container">
-          <div className="search-container">
-            <FaSearch className="search-icon" />
+    <div className={styles.fournisseurContainer}>
+      <div className={styles.container}>
+        <div className={styles.controlsContainer}>
+          <div className={styles.searchContainer}>
+            <FaSearch className={styles.searchIcon} />
             <input
               type="text"
-              className="search-input"
+              className={styles.searchInput}
               placeholder="Rechercher..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Rechercher un fournisseur"
             />
           </div>
-          <div className="action-buttons">
-            <button className="action-btn" onClick={() => setShowSuppliersModal(true)}>
+          <div className={styles.actionButtons}>
+            <button
+              className={styles.actionBtn}
+              onClick={() => setShowSuppliersModal(true)}
+            >
               <FaUsers /> Voir Fournisseurs
             </button>
-            <button className="action-btn" onClick={() => setShowAddForm(true)}>
+            <button
+              className={styles.actionBtn}
+              onClick={() => setShowAddForm(true)}
+            >
               <FaPlus /> Ajouter Fournisseur
             </button>
           </div>
         </div>
 
         {showAddForm && (
-          <div className="modal">
-            <div className="modal-content">
-              <button className="close-btn" onClick={() => setShowAddForm(false)}>×</button>
+          <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <button
+                className={styles.closeBtn}
+                onClick={() => setShowAddForm(false)}
+                aria-label="Fermer la modale"
+              >
+                ×
+              </button>
               <h2>Ajouter un Fournisseur</h2>
               <form>
                 <input
                   type="text"
                   placeholder="Nom du fournisseur"
                   value={newSupplier.name}
-                  onChange={(e) => setNewSupplier({ ...newSupplier, name: e.target.value })}
+                  onChange={(e) =>
+                    setNewSupplier({ ...newSupplier, name: e.target.value })
+                  }
+                  aria-label="Nom du fournisseur"
                 />
                 <input
                   type="tel"
@@ -151,6 +167,7 @@ function Fournisseur({ products, setProducts }) {
                   onChange={handleContactChange}
                   pattern="\+212\d{9}"
                   maxLength="13"
+                  aria-label="Numéro de contact"
                 />
                 <button type="button" onClick={handleAddSupplier}>
                   Ajouter
@@ -161,13 +178,19 @@ function Fournisseur({ products, setProducts }) {
         )}
 
         {showSelectionModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <button className="close-btn" onClick={() => setShowSelectionModal(false)}>×</button>
+          <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <button
+                className={styles.closeBtn}
+                onClick={() => setShowSelectionModal(false)}
+                aria-label="Fermer la modale"
+              >
+                ×
+              </button>
               <h2>Sélectionner des Produits pour {currentSupplier.name}</h2>
-              <div className="products-selection">
+              <div className={styles.productsSelection}>
                 {products.map((product) => (
-                  <label key={product.id} className="product-checkbox">
+                  <label key={product.id} className={styles.productCheckbox}>
                     <input
                       type="checkbox"
                       checked={selectedProducts.includes(product.id)}
@@ -185,19 +208,28 @@ function Fournisseur({ products, setProducts }) {
         )}
 
         {showSuppliersModal && (
-          <div className="modal">
-            <div className="modal-content suppliers-list-modal">
-              <button className="close-btn" onClick={() => setShowSuppliersModal(false)}>×</button>
+          <div className={styles.modal}>
+            <div className={`${styles.modalContent} ${styles.suppliersListModal}`}>
+              <button
+                className={styles.closeBtn}
+                onClick={() => setShowSuppliersModal(false)}
+                aria-label="Fermer la modale"
+              >
+                ×
+              </button>
               <h2>Liste des Fournisseurs</h2>
               {suppliers.length > 0 ? (
-                <ul className="suppliers-list">
+                <ul className={styles.suppliersList}>
                   {suppliers.map((supplier) => (
-                    <li key={supplier.id} className="supplier-item">
-                      <div className="supplier-info">
-                        <span className="supplier-name">{supplier.name}</span>
-                        <div className="contact-info">
-                          <FaPhone className="phone-icon" />
-                          <a href={`tel:${supplier.contact}`} className="supplier-contact">
+                    <li key={supplier.id} className={styles.supplierItem}>
+                      <div className={styles.supplierInfo}>
+                        <span className={styles.supplierName}>{supplier.name}</span>
+                        <div className={styles.contactInfo}>
+                          <FaPhone className={styles.phoneIcon} />
+                          <a
+                            href={`tel:${supplier.contact}`}
+                            className={styles.supplierContact}
+                          >
                             {formatPhoneNumber(supplier.contact)}
                           </a>
                         </div>
@@ -212,7 +244,7 @@ function Fournisseur({ products, setProducts }) {
           </div>
         )}
 
-        <table className="table">
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Nom du Fournisseur</th>
@@ -223,33 +255,43 @@ function Fournisseur({ products, setProducts }) {
           </thead>
           <tbody>
             {filteredSuppliers.map((supplier) => {
-              const supplierProducts = products.filter(p => p.supplier === supplier.name);
+              const supplierProducts = products.filter((p) => p.supplier === supplier.name);
               return (
                 <tr key={supplier.id}>
                   <td>{supplier.name}</td>
                   <td>
-                    <div className="contact-info">
+                    <div className={styles.contactInfo}>
                       <FaPhone /> {formatPhoneNumber(supplier.contact)}
                     </div>
                   </td>
                   <td>
                     {supplierProducts.length > 0 ? (
-                      <ul className="products-list">
-                        {supplierProducts.map(product => (
+                      <ul className={styles.productsList}>
+                        {supplierProducts.map((product) => (
                           <li key={product.id}>
                             {product.name} ({product.quantity} {product.unit})
-                            <button 
-                              className="remove-product-btn"
+                            <button
+                              className={styles.removeProductBtn}
                               onClick={() => {
-                                setProducts(prev => prev.map(p => 
-                                  p.id === product.id ? { ...p, supplier: 'Non assigné' } : p
-                                ));
-                                setSuppliers(prev => prev.map(s => 
-                                  s.id === supplier.id 
-                                    ? { ...s, assignedProducts: s.assignedProducts.filter(id => id !== product.id) }
-                                    : s
-                                ));
+                                setProducts((prev) =>
+                                  prev.map((p) =>
+                                    p.id === product.id ? { ...p, supplier: 'Non assigné' } : p
+                                  )
+                                );
+                                setSuppliers((prev) =>
+                                  prev.map((s) =>
+                                    s.id === supplier.id
+                                      ? {
+                                          ...s,
+                                          assignedProducts: s.assignedProducts.filter(
+                                            (id) => id !== product.id
+                                          ),
+                                        }
+                                      : s
+                                  )
+                                );
                               }}
+                              aria-label={`Retirer ${product.name} du fournisseur ${supplier.name}`}
                             >
                               ×
                             </button>
@@ -261,16 +303,18 @@ function Fournisseur({ products, setProducts }) {
                     )}
                   </td>
                   <td>
-                    <div className="action-buttons">
-                      <button 
-                        className="action-btn btn-edit icon-only"
+                    <div className={styles.actionButtons}>
+                      <button
+                        className={`${styles.actionBtn} ${styles.btnEdit}`}
                         onClick={() => handleAssignSupplier(supplier)}
+                        aria-label={`Assigner des produits à ${supplier.name}`}
                       >
                         <FaEdit />
                       </button>
-                      <button 
-                        className="action-btn btn-delete icon-only"
+                      <button
+                        className={`${styles.actionBtn} ${styles.btnDelete}`}
                         onClick={() => handleDeleteSupplier(supplier.id)}
+                        aria-label={`Supprimer ${supplier.name}`}
                       >
                         <FaTrash />
                       </button>
@@ -281,6 +325,9 @@ function Fournisseur({ products, setProducts }) {
             })}
           </tbody>
         </table>
+        {filteredSuppliers.length === 0 && (
+          <p className={styles.noResults}>Aucun fournisseur trouvé.</p>
+        )}
       </div>
     </div>
   );
