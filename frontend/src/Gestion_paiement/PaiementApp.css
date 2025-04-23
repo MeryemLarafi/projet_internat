@@ -1,0 +1,583 @@
+/* Réinitialisation globale */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: #eef2f7;
+  min-height: 100vh;
+  padding: 30px;
+}
+
+/* Conteneur principal */
+.paiement-app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f7f9fc; /* خلفية رمادية فاتحة */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e4e8;
+}
+
+/* Boutons de navigation */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.nav-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background-color: #4a5568; /* Gris foncé */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px; /* Taille des icônes */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 50px; /* Taille fixe pour les boutons */
+  height: 50px; /* Taille fixe pour les boutons */
+}
+
+.nav-buttons button:hover {
+  background-color: #2d3748; /* Gris encore plus foncé au survol */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-buttons button.active {
+  background-color: #2d3748; /* Couleur active */
+}
+
+.nav-buttons button i {
+  font-size: 24px; /* Taille des icônes */
+}
+
+/* Conteneur du formulaire */
+.form-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-container h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #4a5568;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  border: 1px solid #fecaca;
+}
+
+.success-message {
+  background-color: #dcfce7;
+  color: #16a34a;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  border: 1px solid #bbf7d0;
+}
+
+/* Boutons des mois */
+.mois-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.mois-buttons button {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mois-buttons button:hover {
+  background-color: #f3f4f6;
+}
+
+.mois-buttons button.selected {
+  background-color: #4a5568;
+  color: white;
+  border-color: #4a90e2;
+}
+
+/* Montant total */
+.montant-total {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Bouton Ajouter/Mettre à jour */
+.ajouter-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color:#4a5568;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ajouter-button:hover {
+  background-color:#626f84;
+}
+
+.ajouter-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Conteneur du tableau */
+.table-container {
+  padding: 25px;
+}
+
+.table-title {
+  display: none; /* Masquer le titre */
+}
+
+/* Barre de recherche */
+.search-bar {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #d5dce2;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  background: #f9fafb;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  border-color:#4a5568;
+  outline: none;
+  box-shadow: 0 0 6px rgba(52, 73, 94, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #3c3d3d;
+  font-size: 18px;
+}
+
+/* Table actions container */
+.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espacement uniforme entre les éléments */
+  width: 100%; /* Prend toute la largeur du tableau */
+  margin-bottom: 20px;
+  padding: 0 15px; /* Ajout d'un padding pour un meilleur espacement */
+  box-sizing: border-box;
+}
+
+.table-actions .search-bar,
+.table-actions .export-pdf-button,
+.table-actions .delete-all-button {
+  flex: 1; /* Chaque élément prend une part égale de l'espace disponible */
+  max-width: 33%; /* Limite la largeur à un tiers de la ligne */
+  margin: 0 5px; /* Espacement entre les éléments */
+}
+
+.table-actions .search-bar {
+  position: relative;
+}
+
+.table-actions .search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #d5dce2;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  background: #f9fafb;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.table-actions .search-input:focus {
+  border-color: #4a5568;
+  outline: none;
+  box-shadow: 0 0 6px rgba(52, 73, 94, 0.2);
+}
+
+.table-actions .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #3c3d3d;
+  font-size: 18px;
+}
+
+.table-actions .export-pdf-button,
+.table-actions .delete-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #4a5568;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.table-actions .export-pdf-button:hover {
+  background-color: #555656;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.table-actions .delete-all-button:hover {
+  background-color: #c0392b;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Bouton Supprimer tout */
+.delete-all-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color:#4a5568;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-all-button:hover {
+  background-color: #c0392b;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.delete-all-button svg {
+  color: #fff;
+}
+
+/* Bouton Exporter PDF */
+.export-pdf-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #525455;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.export-pdf-button:hover {
+  background-color: #555656;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.export-pdf-button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.export-pdf-button svg {
+  color: #fff;
+}
+
+/* Tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 14px 18px;
+  text-align: center;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+th {
+  background-color: #34495e;
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+td {
+  color:  #34495e;
+  font-size: 15px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background-color: #f7f9fc;
+}
+
+/* Boutons d'action */
+td button {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+td button:hover {
+  transform: scale(1.2);
+}
+
+.ajouter-paiement svg {
+  color: #27ae60;
+}
+
+.ajouter-paiement:hover svg {
+  color: #219150;
+}
+
+.modifier svg {
+  color: #f39c12;
+}
+
+.modifier:hover svg {
+  color: #d68910;
+}
+
+.supprimer svg {
+  color: #e74c3c;
+}
+
+.supprimer:hover svg {
+  color: #c0392b;
+}
+
+/* Fenêtre modale de paiement */
+.payment-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modal-content h3 {
+  color: #2c3e50;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.payment-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.payment-input input {
+  width: 100px;
+  padding: 12px;
+  border: 1px solid #d5dce2;
+  border-radius: 8px;
+  font-size: 15px;
+  text-align: center;
+  background: #f9fafb;
+}
+
+.payment-input button {
+  padding: 12px 15px;
+  background-color: #34495e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-input button:hover {
+  background-color: #2c3e50;
+}
+
+.submit-payment {
+  padding: 12px 25px;
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.submit-payment:hover {
+  background-color: #219150;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cancel-button {
+  padding: 12px 25px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Focus states for accessibility */
+button:focus,
+input:focus {
+  outline: 2px solid #34495e;
+  outline-offset: 2px;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+  .paiement-app-container {
+    padding: 20px;
+  }
+  .nav-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .nav-buttons button {
+    width: 100%;
+  }
+  .form-container input {
+    max-width: 100%;
+  }
+  .mois-buttons {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+  .table-container {
+    padding: 15px;
+  }
+  th,
+  td {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+  .table-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

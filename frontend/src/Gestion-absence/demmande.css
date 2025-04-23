@@ -1,0 +1,172 @@
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fb;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 50%;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.header .logo {
+  font-size: 2.5rem;
+  color: #9e9e9e;
+}
+
+.header h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-top: 5px;
+}
+
+.header .subtitle {
+  color: #777;
+  font-size: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  font-size: 1.25rem;
+  color: #4a5568;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.form-section h3 i {
+  margin-right: 10px;
+}
+
+.form-gr{
+  margin-bottom: 20px; /* Espacement entre les champs */
+}
+
+.form-gr label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px; /* Espacement entre le label et l'input */
+  display: block;
+  font-size: 1rem; /* Taille de police du label */
+}
+
+.input-gr {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc; /* Bordure plus subtile */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px; /* Augmenter le padding pour plus d'espace */
+  background-color: #fff; /* Fond blanc pour un contraste clair */
+  gap: 10px; /* Espacement entre l'icône et l'input */
+  width: 100%; /* S'assurer que l'input prend toute la largeur disponible */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajouter une ombre subtile */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-gr hover {
+  border-color: #4a90e2; /* Changer la couleur de la bordure au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombre plus marquée au survol */
+}
+
+.input-gr input {
+  border: none;
+  outline: none;
+  flex: 1; /* Permet à l'input de s'étendre pour occuper l'espace disponible */
+  padding: 10px;
+  font-size: 1rem; /* Taille de police plus grande */
+  background-color: transparent; /* Fond transparent pour s'intégrer au conteneur */
+}
+
+.input-gr i {
+  color: #4a5568; /* Couleur de l'icône en gris */
+  font-size: 1.2rem; /* Taille de l'icône légèrement augmentée */
+}
+
+.input-group input:focus {
+  border: none; /* Supprimer la bordure par défaut */
+  outline: none; /* Supprimer l'effet de focus par défaut */
+}
+
+.input-gr:focus-within {
+  border-color: #4a90e2; /* Couleur de la bordure au focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre plus marquée au focus */
+}
+
+select,
+textarea,
+input[type="date"],
+input[type="text"] {
+  width: 100%; /* S'assurer que chaque input prend toute la largeur disponible */
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  background-color: #f9f9f9;
+  box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.meal-options {
+  display: flex;
+  gap: 15px;
+}
+
+.meal-option {
+  display: flex;
+  align-items: center;
+}
+
+.submit-btn {
+  background-color: #4a5568;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #4a5568;
+}
+
+.submit-btn i {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 0%;
+  }
+}
