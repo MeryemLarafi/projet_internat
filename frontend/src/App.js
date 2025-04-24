@@ -9,6 +9,7 @@ import StockPage from './Gestion_stock/StockPage';
 import ChambreApp from './Gestion_chambre/ChambreApp';
 import Dashboard from './composants/Dashboard';
 import PaiementApp from './Gestion_paiement/PaiementApp';
+import GestionCandidats from './Gestion_dossier/GestionCandidats';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -55,7 +56,7 @@ function App() {
               <Route path="/gestion-stock" element={<StockPage />} />
               <Route path="/gestion-chambre/*" element={<ChambreApp />} />
               <Route path="/gestion-paiements" element={<PaiementApp/> }/>
-              <Route path="/gestion-dossier" element={<div>Gestion des dossiers (Placeholder)</div>} />
+              <Route path="/gestion-dossier" element= {<GestionCandidats/> }/>
               <Route path="/notifications" element={<div>Notifications (Placeholder)</div>} />
               <Route path="/login" element={<div>Login (Placeholder)</div>} />
             </Routes>
